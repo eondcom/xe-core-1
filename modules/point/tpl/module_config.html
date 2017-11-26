@@ -3,37 +3,68 @@
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
 <p>{$lang->about_module_point}</p>
+<!-- 모듈별 일괄 포인트 변경 -->
+<style>
+	.batchpoint_wrap {}
+	.batchpoint_wrap .btn-batchpoint{float:left;margin-right:10px;width:230px;}
+	.batchpoint_wrap .batchpoint_input{float:right;}
+	.batchpoint_wrap .batchpoint_input .batchpoint{float:left;width:105px;text-align:center;}
+	.batchpoint_wrap .batchpoint_input .batchpoint input{width:50px;text-align:right;padding-right:10px;}
+</style>
+<div class="batchpoint_wrap">
+	<span class="x_pull-left" >
+		<button type="submit" class="btn-batchpoint x_btn x_btn-primary">일괄변경</button>
+	</span>
+	{@$i=1;}
+<div class="batchpoint_input">
+	<!--@while($i<=7)-->
+<div class="batchpoint"><input type="text" class="input{$i}" value="" /></div>
+{@$i++;}
+<!--@end-->
+</div>
+<script type="text/javascript">
+	jQuery(function($){
+		$('.btn-batchpoint').on('click',function(){
+			for(var i=1;i<=7;i++){
+				var input_val = $('.input'+i).val();
+				$('.output'+i).val(input_val);
+			}
+		});
+	});
+</script>
+</div>
+<!--// 모듈별 일괄 포인트 변경 -->
 <form action="./" method="post" id="fo_point">
 	<input type="hidden" name="module" value="point" />
 	<input type="hidden" name="act" value="procPointAdminInsertModuleConfig" />
 	<input type="hidden" name="xe_validator_id" value="modules/point/tpl/module_cofig/1" />
 	<table class="x_table x_table-striped x_table-hover">
 		<thead>
-			<tr>
-				<th scope="col">{$lang->module}</th>
-				<th scope="col">{$lang->point_insert_document}</th>
-				<th scope="col">{$lang->point_insert_comment}</th>
-				<th scope="col">{$lang->point_upload_file}</th>
-				<th scope="col">{$lang->point_download_file}</th>
-				<th scope="col">{$lang->point_read_document}</th>
-				<th scope="col">{$lang->point_voted}</th>
-				<th scope="col">{$lang->point_blamed}</th>
-			</tr>
+		<tr>
+			<th scope="col">{$lang->module}</th>
+			<th scope="col">{$lang->point_insert_document}</th>
+			<th scope="col">{$lang->point_insert_comment}</th>
+			<th scope="col">{$lang->point_upload_file}</th>
+			<th scope="col">{$lang->point_download_file}</th>
+			<th scope="col">{$lang->point_read_document}</th>
+			<th scope="col">{$lang->point_voted}</th>
+			<th scope="col">{$lang->point_blamed}</th>
+		</tr>
 		</thead>
 		<tbody>
-			<tr loop="$mid_list => $key,$val">
-				<th scope="row">{$val->browser_title}({$val->mid})</th>
-				<td class="nowr"><input type="number" style="width:40px;text-align:right" name="insert_document[{$val->module_srl}]" value="{$module_config[$val->module_srl]['insert_document']}" title="{$config->point_name}" /> {$config->point_name}</td>
-				<td class="nowr"><input type="number" style="width:40px;text-align:right" name="insert_comment[{$val->module_srl}]" value="{$module_config[$val->module_srl]['insert_comment']}" title="{$config->point_name}" /> {$config->point_name}</td>
-				<td class="nowr"><input type="number" style="width:40px;text-align:right" name="upload_file[{$val->module_srl}]" value="{$module_config[$val->module_srl]['upload_file']}" title="{$config->point_name}" /> {$config->point_name}</td>
-				<td class="nowr"><input type="number" style="width:40px;text-align:right" name="download_file[{$val->module_srl}]" value="{$module_config[$val->module_srl]['download_file']}" title="{$config->point_name}" /> {$config->point_name}</td>
-				<td class="nowr"><input type="number" style="width:40px;text-align:right" name="read_document[{$val->module_srl}]" value="{$module_config[$val->module_srl]['read_document']}" title="{$config->point_name}" /> {$config->point_name}</td>
-				<td class="nowr"><input type="number" style="width:40px;text-align:right" name="voted[{$val->module_srl}]" value="{$module_config[$val->module_srl]['voted']}" title="{$config->point_name}" /> {$config->point_name}</td>
-				<td class="nowr"><input type="number" style="width:40px;text-align:right" name="blamed[{$val->module_srl}]" value="{$module_config[$val->module_srl]['blamed']}" title="{$config->point_name}" /> {$config->point_name}</td>
-			</tr>
+		<tr loop="$mid_list => $key,$val">
+			<th scope="row">{$val->browser_title}({$val->mid})</th>
+			<td class="nowr"><input type="number" style="width:40px;text-align:right" name="insert_document[{$val->module_srl}]" value="{$module_config[$val->module_srl]['insert_document']}" title="{$config->point_name}" class="output1" /> {$config->point_name}</td>
+			<td class="nowr"><input type="number" style="width:40px;text-align:right" name="insert_comment[{$val->module_srl}]" value="{$module_config[$val->module_srl]['insert_comment']}" title="{$config->point_name}" class="output2" /> {$config->point_name}</td>
+			<td class="nowr"><input type="number" style="width:40px;text-align:right" name="upload_file[{$val->module_srl}]" value="{$module_config[$val->module_srl]['upload_file']}" title="{$config->point_name}" class="output3" /> {$config->point_name}</td>
+			<td class="nowr"><input type="number" style="width:40px;text-align:right" name="download_file[{$val->module_srl}]" value="{$module_config[$val->module_srl]['download_file']}" title="{$config->point_name}" class="output4" /> {$config->point_name}</td>
+			<td class="nowr"><input type="number" style="width:40px;text-align:right" name="read_document[{$val->module_srl}]" value="{$module_config[$val->module_srl]['read_document']}" title="{$config->point_name}" class="output5" /> {$config->point_name}</td>
+			<td class="nowr"><input type="number" style="width:40px;text-align:right" name="voted[{$val->module_srl}]" value="{$module_config[$val->module_srl]['voted']}" title="{$config->point_name}"  class="output6"/> {$config->point_name}</td>
+			<td class="nowr"><input type="number" style="width:40px;text-align:right" name="blamed[{$val->module_srl}]" value="{$module_config[$val->module_srl]['blamed']}" title="{$config->point_name}"  class="output7"/> {$config->point_name}</td>
+		</tr>
 		</tbody>
 	</table>
-    <div class="x_clearfix">
+	<div class="x_clearfix">
 		<span class="x_pull-right"><input class="x_btn x_btn-primary" type="submit" value="{$lang->cmd_registration}" /></span>
 	</div>
 </form>
